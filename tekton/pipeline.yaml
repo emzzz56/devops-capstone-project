@@ -15,7 +15,6 @@ spec:
     - name: repo-url
     - name: branch
       default: main
-    - name: build-image
   tasks:
     - name: init
       workspaces:
@@ -66,16 +65,3 @@ spec:
       runAfter:
         - clone
         
-    - name: build
-      workspaces:
-        - name: source
-          workspace: pipeline-workspace
-      taskRef:
-        name: buildah
-        kind: ClusterTask
-      params:
-      - name: IMAGE
-        value: "$(params.build-image)"
-      runAfter:
-        - tests
-        - lint
